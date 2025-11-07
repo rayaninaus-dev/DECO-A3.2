@@ -21,12 +21,14 @@
   @apply bg-white border border-slate-200 rounded-soft p-6 shadow-sm;
 }
 
-.annotation-block[data-visible="false"] {
-  display: none;
-}
-
 .annotation-block {
   @apply mt-4 border border-dashed border-slate-300 rounded-xl bg-slate-50/90 p-4 text-sm text-slate-600;
+}
+
+.skeleton-shimmer {
+  background-image: linear-gradient(90deg, #f1f5f9 0%, #e2e8f0 50%, #f1f5f9 100%);
+  background-size: 200% 100%;
+  background-repeat: no-repeat;
 }
 
 .screen-only {
@@ -81,12 +83,19 @@
     position: static !important;
   }
 
-  .screen-only {
+  .screen-only,
+  button,
+  input,
+  select,
+  textarea {
     display: none !important;
   }
 
   .annotation-block {
     display: block !important;
+    opacity: 1 !important;
+    height: auto !important;
+    margin-top: 1rem !important;
   }
 
   [data-panel="annotations"] {
@@ -95,5 +104,9 @@
 
   [data-panel="a2"] {
     display: block !important;
+  }
+
+  .skeleton-shimmer {
+    background-image: none !important;
   }
 }

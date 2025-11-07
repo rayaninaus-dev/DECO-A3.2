@@ -1,6 +1,6 @@
 # Design Fiction · Pathway 2 (Human–Technology System Futures)
 
-In-world, single-page React artefact that stages the tension between governance-by-default, revocable consent, transparency, trust, and system load within a near-future school wellbeing triage flow. Built with Vite + React, Tailwind CSS, Framer Motion, and lucide-react, with print-friendly layouts for A3 research posters.
+In-world, single-page React artefact that stages tension between defaults-as-governance, revocable consent, transparency fallacies, and load-aware routing inside a near-future school wellbeing triage flow. Built with Vite, React, Tailwind CSS, Framer Motion, and lucide-react, with A3-ready print styling.
 
 ## Getting Started
 
@@ -9,49 +9,64 @@ npm install
 npm run dev
 ```
 
-The dev server defaults to `http://localhost:5173/` and supports hot module replacement.
+The dev server runs at `http://localhost:5173/` with hot module reload.
 
-## Available Scripts
+## Build Stamp & Deploy Targets
 
-- `npm run dev` – start the Vite dev server.
-- `npm run build` – create a production bundle in `dist/`.
-- `npm run preview` – serve the `dist/` build locally for smoke-testing.
+The header’s build stamp reads from `import.meta.env.VITE_COMMIT`. Provide it when building for traceability:
 
-## Deployment
+```bash
+VITE_COMMIT=$(git rev-parse --short HEAD) npm run build
+# or on PowerShell
+$env:VITE_COMMIT = (git rev-parse --short HEAD); npm run build
+```
 
-### Netlify
-1. Push this repository to your preferred Git platform.
-2. In Netlify, create a new site from Git and connect the repository.
-3. Set **build command** to `npm run build` and **publish directory** to `dist`.
-4. Deploy; Netlify will install dependencies, build, and host the static bundle.
+If omitted, the UI falls back to a time-stamped local marker. Deploy the resulting `dist/` folder to any static host (e.g. Netlify, GitHub Pages); the default scripts are:
 
-### GitHub Pages
-1. Run `npm run build`.
-2. Copy the generated `dist/` contents into a branch or folder dedicated to Pages (for example `gh-pages`).
-3. Commit and push, then enable GitHub Pages for that branch via repository settings (served from `/`).
-4. Because this is a SPA, ensure Pages is configured with the default 404 fallback so client-side routing works (Vite handles this automatically with relative asset paths).
+- `npm run dev` – start Vite dev server
+- `npm run build` – produce the production bundle
+- `npm run preview` – serve the built bundle locally
 
-## Accessibility Checklist
+## Keyboard Shortcuts
 
-- **Semantics & landmarks** – Header, main grid, and footer follow a logical order; additional aria-live regions communicate status changes (routes, consent receipts, withdrawals).
-- **Keyboard reachability** – All controls are native elements or `button` components, complete with visible focus styles provided via Tailwind utilities.
-- **Reduced motion** – `prefers-reduced-motion` toggles eliminate motion durations and avoid unnecessary animation.
-- **Colour reliance** – Neutral palette with indigo accent; differences in state are conveyed with copy, borders, or badges rather than hue alone.
-- **Downloadable records** – Consent receipt download includes structured `state` JSON, supporting screen-reader friendly auditing.
-- **Print & screen parity** – `@media print` ensures annotations are forced visible, interactive toggles are hidden, and the page fits an A3 portrait sheet.
+- `A` – toggle annotations (Stakeholder / HCI / Tension)
+- `R` – toggle the Field notes (A2) panel
+- `P` – open the print dialog (A3 poster mode)
+
+## Field Notes (A2) Rename
+
+The former “A2 cues” panel is now titled **Field notes (A2)** to keep the artefact in-world. Its link placeholder (`./evidence-pack.pdf`) is safe to replace with the actual evidence pack as needed.
+
+## Accessibility & Interaction Notes
+
+- **Landmarks & live regions** – header → hero → main grid → sidebar → footer, plus aria-live updates for queue status and consent withdrawals.
+- **Keyboard reachability** – every interactive element is a native control with the shared `focus-ring` utility.
+- **Reduced motion** – `prefers-reduced-motion` collapses motion durations to ~0, including skeleton placeholders and Framer Motion transitions.
+- **Colour reliance** – neutral palette + single indigo accent; copy and labels communicate governance state (no red/green severity coding).
+- **Consent receipt** – downloadable TXT ticket with route, expiry, acknowledgements, and status stamp (Active/Withdrawn) for auditing.
+- **Queue transparency** – skeleton shimmer runs 400–600 ms on route changes, then reveals label, wait range, and a `Last updated 00:18s` ticker.
 
 ## Demo Script (suggested flow)
 
-1. Open the site; point out the header toggles, A2 cues button, and default-hidden annotations.
-2. Describe the hero storyline about revocable consent, expiring defaults, and the relationship between transparency and trust.
-3. Walk through Screen 1: switch routing options, edit the 30-day expiry, and show how “Continue” only unlocks after acknowledging that screening is not diagnosis.
-4. Move to Screen 2: reveal “Why this score?”, download the consent receipt, and demonstrate how queue status adapts when choosing Talk now / Book later / Ask anonymously.
-5. Proceed to Screen 3: adjust who is notified, set a custom time, withdraw consent, and surface the JSON confirmation.
-6. Toggle the annotations switch and the A2 cues button to expose stakeholder tensions and research insights.
-7. Finish with the print preview note: A3 portrait, annotations forced on, and interactive elements suppressed for archival artefacts.
+1. Highlight the header’s CareLink brand, build stamp, and the Show annotations / Field notes / Reset controls.
+2. Cover the hero narrative and policy banner (Policy X · Student Wellness Data Standard), then flip the **Low-risk demo** button.
+3. Screen 1 – explain the default chips, edit the expiry (1–364 days), and show that Continue unlocks only after acknowledging “screening != diagnosis”.
+4. Screen 2 – open **Why this score?**, point out the Item cluster / Self-report / Time factor evidence, download the consent receipt, and toggle routes to watch the skeleton shimmer + timer update.
+5. Screen 3 – walk through the Who / When / Confirm step bar, pick a custom time outside school hours (warning appears), and toggle Withdraw to surface the 2-second feedback.
+6. Toggle annotations (A key works too) to reveal Stakeholder/HCI/Tension copy, then show **Field notes (A2)** with the placeholder evidence link.
+7. Open print preview: two-column layout collapses, controls disappear, annotations + legend persist, and the footer still states “Speculation, not prediction.”
 
-## Print Notes
+## Print Notes (A3 Poster Mode)
 
-- `@media print` sets `@page` to A3 portrait, collapses the two-column grid, and prevents buttons/toggles from printing.
-- Annotation blocks always render in print, even if the on-screen toggle is off, so evidence panels remain legible on posters.
-- The footer statement (“Speculation, not prediction.”) is preserved to foreground the speculative nature of the artefact.
+- `@media print` forces A3 portrait, stacks the three screens vertically, keeps the policy banner and footer, and reveals all annotation blocks regardless of toggle state.
+- Interactive controls (buttons, inputs, toggles) are hidden; legend, policy banners, and textual chips remain.
+- The skeleton placeholder collapses to a plain block so queue context stays legible when frozen to paper.
+
+## Changelog (latest sprint)
+
+- Added CareLink brand chrome, build-stamped header (with `VITE_COMMIT` support), and a persistent speculation footer.
+- Introduced policy banner, consent default chips, editable expiry chip, and low-risk demo mode.
+- Upgraded Screen 2 with evidence bullets, structured consent receipt ticket, queue skeleton shimmer, and ticker.
+- Refreshed Screen 3 with the Who→When→Confirm step bar, balanced withdraw affordance, emergency policy note, and off-hours warnings.
+- Rebuilt annotations reveal (staggered motion + legend) and renamed the cues panel to Field notes (A2) with an evidence-pack link.
+- Hardened print stylesheet (annotations forced on, controls hidden) and documented keyboard shortcuts plus build-stamp instructions.
