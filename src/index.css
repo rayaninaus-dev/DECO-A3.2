@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  background-color: #f4f6fb;
+}
+
+@layer base {
+  * {
+    @apply antialiased;
+  }
+
+  body {
+    @apply font-sans bg-slate-50 text-slate-900 min-h-screen;
+  }
+}
+
+.screen-card {
+  @apply bg-white border border-slate-200 rounded-soft p-6 shadow-sm;
+}
+
+.annotation-block[data-visible="false"] {
+  display: none;
+}
+
+.annotation-block {
+  @apply mt-4 border border-dashed border-slate-300 rounded-xl bg-slate-50/90 p-4 text-sm text-slate-600;
+}
+
+.screen-only {
+  display: inline-flex;
+}
+
+.annotations-sidebar {
+  @apply space-y-4;
+}
+
+.legend-dot {
+  @apply inline-flex items-center justify-center rounded-full border border-slate-300;
+}
+
+.focus-ring {
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigoAccent-500;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0s !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media print {
+  @page {
+    size: A3 portrait;
+    margin: 12mm;
+  }
+
+  body {
+    @apply bg-white text-slate-900;
+  }
+
+  #root {
+    max-width: 100% !important;
+  }
+
+  .screen-card {
+    @apply shadow-none border border-slate-300 rounded-xl;
+    break-inside: avoid;
+  }
+
+  .main-grid {
+    display: block !important;
+  }
+
+  .annotations-sidebar {
+    position: static !important;
+  }
+
+  .screen-only {
+    display: none !important;
+  }
+
+  .annotation-block {
+    display: block !important;
+  }
+
+  [data-panel="annotations"] {
+    display: block !important;
+  }
+
+  [data-panel="a2"] {
+    display: block !important;
+  }
+}
