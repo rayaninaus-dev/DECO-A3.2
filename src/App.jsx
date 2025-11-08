@@ -944,7 +944,9 @@ export default function App() {
                     ))}
                   </ul>
                   <a
-                    href="./evidence-pack.pdf"
+                    href="/Explanatory%20Memorandum.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="mt-3 inline-block text-xs font-semibold text-indigoAccent-700 underline"
                   >
                     See evidence pack
