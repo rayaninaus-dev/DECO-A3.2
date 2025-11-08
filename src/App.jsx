@@ -955,8 +955,13 @@ export default function App() {
           </aside>
         </main>
 
-        <footer className="rounded-soft border border-slate-200 bg-white p-6 text-sm text-slate-600">
-          This is an in-world design fiction. Speculation, not prediction. No medical or legal advice.
+        <footer className="rounded-soft border border-slate-200 bg-white p-6 text-sm text-slate-600 space-y-1">
+          <p>
+            This is an in-world design fiction. Speculation, not prediction. No medical or legal advice.
+          </p>
+          <p className="text-xs text-slate-500">
+            © 2025 Rongyang Jian · Course Code: DECO 6500. All rights reserved.
+          </p>
         </footer>
         <div aria-live="polite" className="sr-only">
           {statusMessage}
